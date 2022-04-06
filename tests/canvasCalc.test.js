@@ -1,17 +1,6 @@
-import { roundDown, calcCanvasMeasure, calcCanvasSize } from "../src/app/canvasCalc";
+import { calcCanvasMeasure, calcCanvasSize } from "../src/app/canvasCalc";
 
 describe("Canvas calculation", () => {
-    describe("Rounded viewport measurement", () => {
-        test("should return a number", () => {
-            expect(typeof roundDown(1)).toBe("number");
-            expect(typeof roundDown(0)).toBe("number");
-            expect(typeof roundDown(1000)).toBe("number");
-        });
-        test("should return a multiple of one hundred", () => {
-            expect(roundDown(1234) % 100).toBe(0);
-            expect(roundDown(1200) % 100).toBe(0);
-        });
-    });
     describe("Canvas height or width calculation", () => {
         // Only one of those 2 obj are passed to the "inner" function
         const height = { min: 450, max: 1200, pad: 150 };

@@ -1,13 +1,11 @@
-const roundDown = (n) => Math.floor(n / 100) * 100;
-
 // Measure is either height or width
 const calcCanvasMeasure =
-    (viewportRoundedMeasure) =>
+    (viewportMeasure) =>
     ({ min, max, pad }) => {
-        if (min < viewportRoundedMeasure && viewportRoundedMeasure < max) {
-            return viewportRoundedMeasure - pad;
+        if (min < viewportMeasure && viewportMeasure < max) {
+            return viewportMeasure - pad;
         }
-        if (viewportRoundedMeasure < min) {
+        if (viewportMeasure < min) {
             return min - pad;
         }
         return max - pad;
@@ -19,4 +17,4 @@ const calcCanvasSize = (height) => (width) =>
         ? { height, width: height / 1.5 }
         : { height: width * 1.5, width };
 
-export { roundDown, calcCanvasMeasure, calcCanvasSize };
+export { calcCanvasMeasure, calcCanvasSize };
