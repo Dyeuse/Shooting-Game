@@ -1,5 +1,10 @@
 @import "reset.css";
 
+body {
+    color: aliceblue;
+    background-color: rgb(2, 2, 46);
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -8,7 +13,8 @@
     margin-top: 10vh;
 }
 
-body {
-    color: aliceblue;
-    background-color: rgb(2, 2, 46);
+canvas {
+    margin-bottom: 10vh;
+    border: 5px ridge rgb(187, 15, 15);
+    background-image: linear-gradient(rgba(60, 209, 247, 0.5), #ccc);
 }
