@@ -44,13 +44,19 @@ const calcCoefficient = (magnitude, includedLength) => magnitude / includedLengt
 /**
  *
  * @function
- * @param {vectorComponents} compo
- * @param {number} coefficient
+ * @param {cartesianCoordinates} coordA
+ * @param {cartesianCoordinates} coordB
+ * @param {number} includedLength
  * @returns {cartesianCoordinates} Cartesian coordinates of a vector'point
  */
-const calcIntermediateCoord = (compo, coefficient) => ({
-    x: compo.x / coefficient,
-    y: compo.y / coefficient,
-});
+const calcIntermediateCoord = (coordA, coordB, includedLength) => {
+    const componentsAB = calcComponents(coordA, coordB);
+    const magnitudeAB = calcMagnitude(componentsAB);
+    const dividingCoefficient = calcCoefficient(magnitudeAB, includedLength);
+    return {
+        x: coordA.x + componentsAB.x / dividingCoefficient,
+        y: coordA.y + componentsAB.y / dividingCoefficient,
+    };
+};
 
 export { calcComponents, calcMagnitude, calcCoefficient, calcIntermediateCoord };
