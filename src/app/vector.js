@@ -2,20 +2,25 @@
 
 /**
  *
- * @typedef coord
+ * @typedef cartesianCoordinates
  * @type {object}
  * @property {number} x - Abscissa
  * @property {number} y - Ordinate
+ *
+ * @typedef vectorComponents
+ * @type {object}
+ * @property {number} x - horizontal component
+ * @property {number} y - vertical component
  */
 
 /**
  *
  * @function
- * @param {coord} coordA - Cartesian coordinates
- * @param {coord} coordB - Cartesian coordinates
- * @returns {coord} Vector's coordinates
+ * @param {cartesianCoordinates} coordA
+ * @param {cartesianCoordinates} coordB
+ * @returns {vectorComponents} Components of the vector AB (= coordinates)
  */
-const calcVectorCoord = (coordA, coordB) => ({
+const calcComponents = (coordA, coordB) => ({
     x: coordB.x - coordA.x,
     y: coordB.y - coordA.y,
 });
@@ -23,30 +28,29 @@ const calcVectorCoord = (coordA, coordB) => ({
 /**
  *
  * @function
- * @param {coord} coord - Vector's coordinates
- * @returns {number} Vector's length
+ * @param {vectorComponents} compo -
+ * @returns {number} Vector's magnitude (= length)
  */
-const calcVectorLength = (coord) => Math.abs(Math.sqrt(coord.x ** 2 + coord.y ** 2));
+const calcMagnitude = (compo) => Math.abs(Math.sqrt(compo.x ** 2 + compo.y ** 2));
 
 /**
  * @function
- * @param {number} vectorLength
- * @param {number} intermediateLength
- * @returns {number} Dividing coefficient
+ * @param {number} magnitude
+ * @param {number} includedLength
+ * @returns {number} Dividing coefficient (number of times a length is in a magnitude)
  */
-const calcCoefficient = (vectorLength, intermediateLength) =>
-    vectorLength / intermediateLength;
+const calcCoefficient = (magnitude, includedLength) => magnitude / includedLength;
 
 /**
  *
  * @function
- * @param {coord} coord - Vector's coordinates
+ * @param {vectorComponents} compo
  * @param {number} coefficient
- * @returns {coord} Cartesian coordinates of a vector'point
+ * @returns {cartesianCoordinates} Cartesian coordinates of a vector'point
  */
-const calcIntermediateCoord = (coord, coefficient) => ({
-    x: coord.x / coefficient,
-    y: coord.y / coefficient,
+const calcIntermediateCoord = (compo, coefficient) => ({
+    x: compo.x / coefficient,
+    y: compo.y / coefficient,
 });
 
-export { calcVectorCoord, calcVectorLength, calcCoefficient, calcIntermediateCoord };
+export { calcComponents, calcMagnitude, calcCoefficient, calcIntermediateCoord };
