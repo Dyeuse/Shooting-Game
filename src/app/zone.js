@@ -1,4 +1,3 @@
-// import pipe from "./pipeline.js";
 import { calcCanvasMeasure, calcCanvasSize } from "./canvasCalc";
 
 class Zone {
@@ -35,6 +34,15 @@ class Zone {
     #handleResize() {
         this.canvas.setAttribute("height", Zone.size.height);
         this.canvas.setAttribute("width", Zone.size.width);
+    }
+
+    static isOutOfZone(coord) {
+        return (
+            coord.x < 0 ||
+            coord.x > Zone.size.width ||
+            coord.y < 0 ||
+            coord.y > Zone.size.height
+        );
     }
 }
 
