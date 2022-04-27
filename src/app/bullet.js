@@ -22,7 +22,9 @@ class Bullet {
 
     move() {
         if (this.zone.constructor.isOutOfZone(this.currentCoord)) {
-            const event = new CustomEvent("isOutOfZone", { detail: this.bulletID });
+            const event = new CustomEvent("isOutOfZone", {
+                detail: { type: "bullet", id: this.bulletID },
+            });
             this.canvas.dispatchEvent(event);
         } else {
             this.distanceFromInitCoord += 3;
