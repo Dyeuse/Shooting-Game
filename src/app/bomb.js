@@ -3,7 +3,7 @@ class Bomb {
 
     bombID = Date.now();
 
-    impact = false;
+    intercepted = false;
 
     constructor(bomber, position) {
         this.zone = bomber.zone;
@@ -60,7 +60,10 @@ class Bomb {
     }
 
     move() {
-        if (this.zone.constructor.isOutOfZone(this.detonatorPosition)) {
+        if (
+            this.intercepted ||
+            this.zone.constructor.isOutOfZone(this.detonatorPosition)
+        ) {
             this.explosionStep += 1;
             this.explose();
         } else {

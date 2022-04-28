@@ -1,4 +1,4 @@
-import { calcIntermediateCoord } from "./vector";
+import { calcComponents, calcIntermediateCoord, calcMagnitude } from "./vector";
 
 class Bullet {
     constructor(gun) {
@@ -20,15 +20,33 @@ class Bullet {
         );
     }
 
+    #isOut() {
+        const event = new CustomEvent("isOutOfZone", {
+            detail: { type: "bullet", id: this.bulletID },
+        });
+        this.canvas.dispatchEvent(event);
+    }
+
     move() {
         if (this.zone.constructor.isOutOfZone(this.currentCoord)) {
-            const event = new CustomEvent("isOutOfZone", {
-                detail: { type: "bullet", id: this.bulletID },
-            });
-            this.canvas.dispatchEvent(event);
+            this.#isOut();
         } else {
             this.distanceFromInitCoord += 3;
         }
+    }
+
+    checkImpact(bombs) {
+        bombs.forEach((bomb) => {
+            const bulletBombComponents = calcComponents(bomb.position, this.currentCoord);
+            const bulletBombMagnitude = calcMagnitude(bulletBombComponents);
+            if (bulletBombMagnitude <= this.zoneSize.width / 10) {
+                this.#isOut();
+                const event = new CustomEvent("isIntercepted", {
+                    detail: { type: "bomb", id: bomb.bombID },
+                });
+                this.canvas.dispatchEvent(event);
+            }
+        });
     }
 
     display() {

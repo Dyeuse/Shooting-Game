@@ -5,7 +5,10 @@ class ProjectilesControler {
         this.bombsInZone = {};
         this.canvas.addEventListener("shoot", this.handleShoot.bind(this));
         this.canvas.addEventListener("drop", this.handleDrop.bind(this));
-        this.canvas.addEventListener("explose", this.handleExplose.bind(this));
+        this.canvas.addEventListener(
+            "isIntercepted",
+            this.handleIsIntercepted.bind(this)
+        );
         this.canvas.addEventListener("isOutOfZone", this.handleIsOutOfZone.bind(this));
     }
 
@@ -17,8 +20,8 @@ class ProjectilesControler {
         this.bombsInZone[event.detail.bombID] = event.detail;
     }
 
-    handleExplose(event) {
-        this.bombsInZone[event.detail.bulletID].displayExplosin();
+    handleIsIntercepted(event) {
+        this.bombsInZone[event.detail.id].intercepted = true;
     }
 
     handleIsOutOfZone(event) {
@@ -36,6 +39,7 @@ class ProjectilesControler {
 
     #displayBullets() {
         Object.values(this.bulletsInZone).forEach((bullet) => {
+            bullet.checkImpact(Object.values(this.bombsInZone));
             bullet.move();
             bullet.display();
         });
