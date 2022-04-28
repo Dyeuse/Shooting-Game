@@ -5,6 +5,7 @@ class ProjectilesControler {
         this.bombsInZone = {};
         this.canvas.addEventListener("shoot", this.handleShoot.bind(this));
         this.canvas.addEventListener("drop", this.handleDrop.bind(this));
+        this.canvas.addEventListener("explose", this.handleExplose.bind(this));
         this.canvas.addEventListener("isOutOfZone", this.handleIsOutOfZone.bind(this));
     }
 
@@ -14,6 +15,10 @@ class ProjectilesControler {
 
     handleDrop(event) {
         this.bombsInZone[event.detail.bombID] = event.detail;
+    }
+
+    handleExplose(event) {
+        this.bombsInZone[event.detail.bulletID].displayExplosin();
     }
 
     handleIsOutOfZone(event) {
