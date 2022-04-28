@@ -1,12 +1,12 @@
 import Zone from "./zone";
-import Gun from "./gun";
-import ProjectilesControler from "./projectilesControler";
+import Radar from "./radar";
 import Bomber from "./bomber";
+import Gun from "./gun";
 
 const zone = new Zone(document.querySelector(".container"));
-const gun = new Gun(zone);
+const radar = new Radar(zone);
 const bomber = new Bomber(zone);
-const projectilesControler = new ProjectilesControler(zone);
+const gun = new Gun(zone);
 
 bomber.dropBombs();
 
@@ -14,6 +14,6 @@ bomber.dropBombs();
     zone.ctx.clearRect(0, 0, Zone.size.width, Zone.size.height);
     gun.zoneSize = Zone.size;
     gun.display();
-    projectilesControler.display();
+    radar.display();
     requestAnimationFrame(draw);
 })();

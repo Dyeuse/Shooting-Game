@@ -1,4 +1,4 @@
-class ProjectilesControler {
+class Radar {
     constructor(zone) {
         this.canvas = zone.canvas;
         this.bulletsInZone = {};
@@ -52,4 +52,4 @@ class ProjectilesControler {
         });
     }
 }
-export default ProjectilesControler;
+export default Radar;
