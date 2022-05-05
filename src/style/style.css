@@ -6,15 +6,43 @@ body {
 }
 
 .container {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: brown;
-    margin-top: 10vh;
+    /* margin-top: 10vh; */
+}
+
+canvas,
+.sky {
+    margin-bottom: 10vh;
+    border: 5px ridge rgb(187, 15, 15);
 }
 
 canvas {
-    margin-bottom: 10vh;
-    border: 5px ridge rgb(187, 15, 15);
-    background-image: linear-gradient(rgba(60, 209, 247, 0.5), #ccc);
+    background-color: rgb(0, 157, 255);
+    /* background-image: linear-gradient(rgba(60, 209, 247, 0.2), #ccc); */
+}
+
+.sky {
+    position: absolute;
+    transform: rotate(180deg);
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.sky img {
+    position: absolute;
+    bottom: 0;
+    max-width: 100%;
+    animation: animate calc(8s * var(--i)) linear infinite;
+}
+@keyframes animate {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
 }
