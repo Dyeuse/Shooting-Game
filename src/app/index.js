@@ -2,7 +2,8 @@ import Zone from "./zone";
 import Radar from "./radar";
 import Bomber from "./bomber";
 import Gun from "./gun";
-import CloudySky from "./cloudySky";
+import Sky from "./sky";
+import pathsClouds from "./pathsClouds";
 import manageResizing from "./resizing";
 
 const container = document.querySelector(".container");
@@ -10,21 +11,11 @@ const zone = new Zone(container);
 const radar = new Radar(zone);
 const bomber = new Bomber(zone);
 const gun = new Gun(zone);
-const cloudySky = new CloudySky(zone, [
-    "media/cloud1.png",
-    "media/cloud2.png",
-    "media/cloud3.png",
-    "media/cloud4.png",
-    "media/cloud5.png",
-    "media/cloud1.png",
-    "media/cloud2.png",
-    "media/cloud3.png",
-    "media/cloud4.png",
-    "media/cloud5.png",
-]);
+const sky = new Sky(zone);
 
 manageResizing(zone);
 
+sky.displayClouds(pathsClouds);
 bomber.dropBombs();
 
 (function draw() {

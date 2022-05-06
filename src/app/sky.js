@@ -1,5 +1,5 @@
-class CloudySky {
-    constructor(zone, cloudsImgSrc) {
+class Sky {
+    constructor(zone) {
         this.zone = zone;
         this.sizeZone = this.zone.constructor.size;
         this.sky = document.createElement("div");
@@ -11,7 +11,9 @@ class CloudySky {
             "resizeGame",
             this.#handleResizeGame.bind(this)
         );
+    }
 
+    displayClouds(cloudsImgSrc) {
         cloudsImgSrc.map((cloudImgSrc, velocity) =>
             this.#createCloud(cloudImgSrc, velocity + 1)
         );
@@ -19,7 +21,7 @@ class CloudySky {
 
     #createCloud(cloudImgSrc, velocity) {
         const cloud = document.createElement("img");
-        cloud.style = `--i: ${velocity}`;
+        cloud.style = `--velocity: ${velocity}`;
         cloud.setAttribute("src", cloudImgSrc);
         this.sky.appendChild(cloud);
     }
@@ -30,4 +32,4 @@ class CloudySky {
     }
 }
 
-export default CloudySky;
+export default Sky;
