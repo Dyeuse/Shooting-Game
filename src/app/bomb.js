@@ -5,13 +5,17 @@ class Bomb {
 
     intercepted = false;
 
-    constructor(bomber, position) {
-        this.zone = bomber.zone;
-        this.canvas = bomber.canvas;
-        this.ctx = bomber.ctx;
-        this.zoneSize = bomber.zoneSize;
+    constructor(zone, position) {
+        this.zone = zone;
+        this.canvas = zone.canvas;
+        this.ctx = zone.ctx;
+        this.zoneSize = zone.constructor.size;
         this.unity = this.zoneSize.width / 100;
         this.position = position;
+        this.zone.container.addEventListener(
+            "resizeGame",
+            this.#handleResizeGame.bind(this)
+        );
     }
 
     get detonatorPosition() {
@@ -19,6 +23,10 @@ class Bomb {
             x: this.position.x,
             y: this.position.y + this.unity * 15,
         };
+    }
+
+    #handleResizeGame(event) {
+        this.unity = event.detail.width / 100;
     }
 
     display() {

@@ -7,6 +7,10 @@ class CloudySky {
         this.sky.style.width = `${this.sizeZone.width}px`;
         this.sky.classList.add("sky");
         this.zone.container.appendChild(this.sky);
+        this.zone.container.addEventListener(
+            "resizeGame",
+            this.#handleResizeGame.bind(this)
+        );
 
         cloudsImgSrc.map((cloudImgSrc, velocity) =>
             this.#createCloud(cloudImgSrc, velocity + 1)
@@ -19,29 +23,11 @@ class CloudySky {
         cloud.setAttribute("src", cloudImgSrc);
         this.sky.appendChild(cloud);
     }
+
+    #handleResizeGame(event) {
+        this.sky.style.height = `${event.detail.height}px`;
+        this.sky.style.width = `${event.detail.width}px`;
+    }
 }
-
-/* function createCloudySky(cloudsImgSrc, zone) {
-    const createSky = () => {
-        const sky = document.createElement("div");
-        sky.style.height = `${zone.constructor.size.height}px`;
-        sky.style.width = `${zone.constructor.size.width}px`;
-        sky.classList.add("sky");
-        zone.container.appendChild(sky);
-        return sky;
-    };
-
-    const createCloud = (cloudImgSrc, velocity, sky) => {
-        const cloud = document.createElement("img");
-        cloud.style = `--i: ${velocity}`;
-        cloud.setAttribute("src", cloudImgSrc);
-        sky.appendChild(cloud); // cloud.onload = () =>
-        return cloud;
-    };
-
-    const sky = createSky();
-
-    cloudsImgSrc.map((src, index) => createCloud(src, index + 1, sky));
-} */
 
 export default CloudySky;

@@ -3,6 +3,7 @@ import Radar from "./radar";
 import Bomber from "./bomber";
 import Gun from "./gun";
 import CloudySky from "./cloudySky";
+import manageResizing from "./resizing";
 
 const container = document.querySelector(".container");
 const zone = new Zone(container);
@@ -22,11 +23,12 @@ const cloudySky = new CloudySky(zone, [
     "media/cloud5.png",
 ]);
 
+manageResizing(zone);
+
 bomber.dropBombs();
 
 (function draw() {
     zone.ctx.clearRect(0, 0, Zone.size.width, Zone.size.height);
-    gun.zoneSize = Zone.size;
     gun.display();
     radar.display();
     requestAnimationFrame(draw);

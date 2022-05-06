@@ -11,6 +11,10 @@ class Gun {
         this.aliveBullets = [];
         this.canvas.addEventListener("mousemove", this.handleMousemove.bind(this));
         this.canvas.addEventListener("click", this.handleClick.bind(this));
+        this.zone.container.addEventListener(
+            "resizeGame",
+            this.#handleResizeGame.bind(this)
+        );
     }
 
     get barrelLength() {
@@ -40,6 +44,10 @@ class Gun {
     handleClick() {
         const event = new CustomEvent("shoot", { detail: new Bullet(this) });
         this.canvas.dispatchEvent(event);
+    }
+
+    #handleResizeGame(event) {
+        this.zoneSize = event.detail;
     }
 
     display() {

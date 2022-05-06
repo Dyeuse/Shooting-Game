@@ -1,6 +1,7 @@
 class Radar {
     constructor(zone) {
         this.canvas = zone.canvas;
+        this.zone = zone;
         this.bulletsInZone = {};
         this.bombsInZone = {};
         this.canvas.addEventListener("shoot", this.handleShoot.bind(this));
