@@ -75,6 +75,7 @@ class Gun {
         const { ctx } = this;
         ctx.lineWidth = (this.zoneSize.width * 2) / 100;
         ctx.lineCap = "round";
+        ctx.strokeStyle = "#252422";
         ctx.beginPath();
         ctx.moveTo(this.tailBarrelCoord.x, this.tailBarrelCoord.y);
         ctx.lineTo(this.tipBarrelCoord.x, this.tipBarrelCoord.y);

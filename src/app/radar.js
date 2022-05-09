@@ -48,8 +48,8 @@ class Radar {
 
     #displayBombs() {
         Object.values(this.bombsInZone).forEach((bomb) => {
-            bomb.move();
-            bomb.display();
+            bomb.moveBomb();
+            bomb.displayBomb();
         });
     }
 }
