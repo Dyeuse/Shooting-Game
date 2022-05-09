@@ -2,15 +2,16 @@ import Bomb from "./bomb";
 
 class Bomber {
     constructor(zone) {
+        Object.assign(this, zone);
         this.zone = zone;
-        this.canvas = zone.canvas;
-        this.ctx = zone.ctx;
         this.zoneSize = zone.constructor.size;
-        this.zone.container.addEventListener(
-            "resizeGame",
-            this.#handleResizeGame.bind(this)
-        );
+        this.unity = zone.constructor.size.width / 100;
+        this.container.addEventListener("resizeGame", this.handleResizeGame);
     }
+
+    handleResizeGame = (event) => {
+        this.zoneSize = event.detail;
+    };
 
     get bombHorizontalCoord() {
         // Bombs can appear in 5 columns
@@ -34,8 +35,24 @@ class Bomber {
         return x;
     }
 
-    #handleResizeGame(event) {
-        this.zoneSize = event.detail;
+    raid() {
+        const that = this;
+        let droppedBombs = 0;
+        let cadence = 2000;
+        let velocity = that.unity / 1.5;
+        let airdropPhase = setTimeout(function drop() {
+            that.#dropABomb(velocity);
+            droppedBombs += 1;
+            if (droppedBombs % 10 === 0 && cadence > 400) {
+                cadence -= 200;
+                velocity += that.unity / 20;
+            }
+            airdropPhase = setTimeout(drop, cadence);
+            console.log(droppedBombs, cadence);
+            if (droppedBombs >= 100) {
+                clearTimeout(airdropPhase);
+            }
+        }, cadence);
     }
 
     #dropABomb(velocity) {
@@ -44,25 +61,6 @@ class Bomber {
             detail: new Bomb(this.zone, position, velocity),
         });
         this.canvas.dispatchEvent(event);
-    }
-
-    raid() {
-        const that = this;
-        let droppedBombs = 0;
-        let cadence = 2000;
-        let velocity = 1;
-        let airdropPhase = setTimeout(function drop() {
-            that.#dropABomb(velocity);
-            droppedBombs += 1;
-            if (droppedBombs % 10 === 0 && cadence > 200) {
-                cadence -= 200;
-                velocity += 0.5;
-            }
-            airdropPhase = setTimeout(drop, cadence);
-            if (droppedBombs >= 100) {
-                clearTimeout(airdropPhase);
-            }
-        }, cadence);
     }
 }
 
