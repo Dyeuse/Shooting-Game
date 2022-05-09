@@ -48,7 +48,6 @@ class Bomber {
                 velocity += that.unity / 20;
             }
             airdropPhase = setTimeout(drop, cadence);
-            console.log(droppedBombs, cadence);
             if (droppedBombs >= 100) {
                 clearTimeout(airdropPhase);
             }
