@@ -14,9 +14,8 @@ const gun = new Gun(zone);
 const sky = new Sky(zone);
 
 manageResizing(zone);
-
 sky.displayClouds(pathsClouds);
-bomber.dropBombs();
+bomber.raid();
 
 (function draw() {
     zone.ctx.clearRect(0, 0, Zone.size.width, Zone.size.height);

@@ -38,14 +38,31 @@ class Bomber {
         this.zoneSize = event.detail;
     }
 
-    dropBombs() {
-        setInterval(() => {
-            const position = { x: this.bombHorizontalCoord, y: 0 };
-            const event = new CustomEvent("drop", {
-                detail: new Bomb(this.zone, position),
-            });
-            this.canvas.dispatchEvent(event);
-        }, 2000);
+    #dropABomb(velocity) {
+        const position = { x: this.bombHorizontalCoord, y: 0 };
+        const event = new CustomEvent("drop", {
+            detail: new Bomb(this.zone, position, velocity),
+        });
+        this.canvas.dispatchEvent(event);
+    }
+
+    raid() {
+        const that = this;
+        let droppedBombs = 0;
+        let cadence = 2000;
+        let velocity = 1;
+        let airdropPhase = setTimeout(function drop() {
+            that.#dropABomb(velocity);
+            droppedBombs += 1;
+            if (droppedBombs % 10 === 0 && cadence > 200) {
+                cadence -= 200;
+                velocity += 0.5;
+            }
+            airdropPhase = setTimeout(drop, cadence);
+            if (droppedBombs >= 100) {
+                clearTimeout(airdropPhase);
+            }
+        }, cadence);
     }
 }
 

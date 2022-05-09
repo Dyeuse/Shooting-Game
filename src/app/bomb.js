@@ -5,13 +5,14 @@ class Bomb {
 
     intercepted = false;
 
-    constructor(zone, position) {
+    constructor(zone, position, velocity) {
         this.zone = zone;
         this.canvas = zone.canvas;
         this.ctx = zone.ctx;
         this.zoneSize = zone.constructor.size;
         this.unity = this.zoneSize.width / 100;
         this.position = position;
+        this.velocity = velocity;
         this.zone.container.addEventListener(
             "resizeGame",
             this.#handleResizeGame.bind(this)
@@ -75,7 +76,7 @@ class Bomb {
             this.explosionStep += 1;
             this.explose();
         } else {
-            this.position.y += 1;
+            this.position.y += this.velocity;
         }
     }
 
