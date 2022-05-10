@@ -19,7 +19,7 @@ bomber.raid();
 
 (function draw() {
     zone.ctx.clearRect(0, 0, Zone.size.width, Zone.size.height);
-    gun.display();
+    gun.displayGun();
     radar.display();
     requestAnimationFrame(draw);
 })();

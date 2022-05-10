@@ -18,11 +18,11 @@ canvas,
 .sky {
     margin-bottom: 10vh;
     border: 5px ridge rgb(187, 15, 15);
+    cursor: crosshair;
 }
 
 canvas {
     background-color: rgb(0, 157, 255);
-    /* background-image: linear-gradient(rgba(60, 209, 247, 0.2), #ccc); */
 }
 
 .sky {
