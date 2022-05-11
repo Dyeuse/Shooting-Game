@@ -4,7 +4,7 @@ import Bomber from "./bomber";
 import Gun from "./gun";
 import Sky from "./sky";
 import pathsClouds from "./utilities/pathsClouds";
-import manageResizing from "./utilities/resizing";
+import propagateResizing from "./utilities/resizing";
 
 const container = document.querySelector(".container");
 const zone = new Zone(container);
@@ -13,7 +13,7 @@ const bomber = new Bomber(zone);
 const gun = new Gun(zone);
 const sky = new Sky(zone);
 
-manageResizing(zone);
+propagateResizing(zone);
 sky.displayClouds(pathsClouds);
 bomber.raid();
 
