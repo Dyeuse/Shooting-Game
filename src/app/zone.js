@@ -8,8 +8,14 @@ class Zone {
         this.container.appendChild(this.canvas);
         this.canvas.setAttribute("height", Zone.size.height);
         this.canvas.setAttribute("width", Zone.size.width);
-        window.addEventListener("resize", this.#handleResize.bind(this));
+        this.container.addEventListener("resizeGame", this.#handleResizeGame);
     }
+
+    #handleResizeGame = (event) => {
+        const { height, width } = event.detail;
+        this.canvas.setAttribute("height", height);
+        this.canvas.setAttribute("width", width);
+    };
 
     static get size() {
         return Zone.#calcZoneSize(window.innerHeight, window.innerWidth);
@@ -31,18 +37,9 @@ class Zone {
         return calcCanvasSize(canvasHeight)(canvasWidth);
     }
 
-    #handleResize() {
-        this.canvas.setAttribute("height", Zone.size.height);
-        this.canvas.setAttribute("width", Zone.size.width);
-    }
-
     static isOutOfZone(coord) {
-        return (
-            coord.x < 0 ||
-            coord.x > Zone.size.width ||
-            coord.y < 0 ||
-            coord.y > Zone.size.height
-        );
+        const { width, height } = Zone.size;
+        return coord.x < 0 || coord.x > width || coord.y < 0 || coord.y > height;
     }
 }
 
