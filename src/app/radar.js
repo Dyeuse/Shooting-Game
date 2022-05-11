@@ -41,8 +41,8 @@ class Radar {
     #displayBullets() {
         Object.values(this.bulletsInZone).forEach((bullet) => {
             bullet.checkImpact(Object.values(this.bombsInZone));
-            bullet.move();
-            bullet.display();
+            bullet.moveBullet();
+            bullet.displayBullet();
         });
     }
 

@@ -1,15 +1,17 @@
 import { calcComponents, calcIntermediateCoord, calcMagnitude } from "./vector";
 
 class Bullet {
+    bulletID = Date.now();
+
+    distanceFromInitCoord = 0;
+
     constructor(gun) {
         this.zone = gun.zone;
         this.canvas = gun.canvas;
         this.ctx = gun.ctx;
-        this.zoneSize = gun.zoneSize;
-        this.bulletID = Date.now();
+        this.unity = gun.unity;
         this.initCoord = { ...gun.tipBarrelCoord };
         this.targetCoord = { ...gun.targetCoord };
-        this.distanceFromInitCoord = 0;
     }
 
     get currentCoord() {
@@ -20,18 +22,11 @@ class Bullet {
         );
     }
 
-    #isOut() {
-        const event = new CustomEvent("isOutOfZone", {
-            detail: { type: "bullet", id: this.bulletID },
-        });
-        this.canvas.dispatchEvent(event);
-    }
-
-    move() {
+    moveBullet() {
         if (this.zone.constructor.isOutOfZone(this.currentCoord)) {
-            this.#isOut();
+            this.#isOutOfZone();
         } else {
-            this.distanceFromInitCoord += 3;
+            this.distanceFromInitCoord += this.unity * 3; // Create bullet motion impression
         }
     }
 
@@ -39,30 +34,38 @@ class Bullet {
         bombs.forEach((bomb) => {
             const bulletBombComponents = calcComponents(bomb.position, this.currentCoord);
             const bulletBombMagnitude = calcMagnitude(bulletBombComponents);
-            if (bulletBombMagnitude <= this.zoneSize.width / 10) {
-                this.#isOut();
-                const event = new CustomEvent("isIntercepted", {
-                    detail: { type: "bomb", id: bomb.bombID },
-                });
-                this.canvas.dispatchEvent(event);
+            if (bulletBombMagnitude <= this.unity * 10) {
+                this.#isOutOfZone();
+                this.#isIntercepted(bomb);
             }
         });
     }
 
-    display() {
-        const { ctx } = this;
+    displayBullet() {
+        const {
+            ctx,
+            unity,
+            currentCoord: { x, y },
+        } = this;
         ctx.beginPath();
         ctx.fillStyle = "#F00";
-        ctx.arc(
-            this.currentCoord.x,
-            this.currentCoord.y,
-            this.zoneSize.width / 70,
-            0,
-            Math.PI * 2,
-            false
-        );
+        ctx.arc(x, y, unity * 1.5, 0, Math.PI * 2, false);
         ctx.fill();
         ctx.closePath();
+    }
+
+    #isOutOfZone() {
+        const event = new CustomEvent("isOutOfZone", {
+            detail: { type: "bullet", id: this.bulletID },
+        });
+        this.canvas.dispatchEvent(event);
+    }
+
+    #isIntercepted(bomb) {
+        const event = new CustomEvent("isIntercepted", {
+            detail: { type: "bomb", id: bomb.bombID },
+        });
+        this.canvas.dispatchEvent(event);
     }
 }
 
