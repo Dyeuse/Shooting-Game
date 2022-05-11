@@ -1,39 +1,38 @@
 class Radar {
+    bulletsInZone = {};
+
+    bombsInZone = {};
+
     constructor(zone) {
-        this.canvas = zone.canvas;
         this.zone = zone;
-        this.bulletsInZone = {};
-        this.bombsInZone = {};
-        this.canvas.addEventListener("shoot", this.handleShoot.bind(this));
-        this.canvas.addEventListener("drop", this.handleDrop.bind(this));
-        this.canvas.addEventListener(
-            "isIntercepted",
-            this.handleIsIntercepted.bind(this)
-        );
-        this.canvas.addEventListener("isOutOfZone", this.handleIsOutOfZone.bind(this));
+        this.canvas = zone.canvas;
+        this.canvas.addEventListener("shoot", this.#handleShoot);
+        this.canvas.addEventListener("drop", this.#handleDrop);
+        this.canvas.addEventListener("isIntercepted", this.#handleIsIntercepted);
+        this.canvas.addEventListener("isOutOfZone", this.#handleIsOutOfZone);
     }
 
-    handleShoot(event) {
+    #handleShoot = (event) => {
         this.bulletsInZone[event.detail.bulletID] = event.detail;
-    }
+    };
 
-    handleDrop(event) {
+    #handleDrop = (event) => {
         this.bombsInZone[event.detail.bombID] = event.detail;
-    }
+    };
 
-    handleIsIntercepted(event) {
+    #handleIsIntercepted = (event) => {
         this.bombsInZone[event.detail.id].intercepted = true;
-    }
+    };
 
-    handleIsOutOfZone(event) {
+    #handleIsOutOfZone = (event) => {
         if (event.detail.type === "bomb") {
             delete this.bombsInZone[event.detail.id];
         } else {
             delete this.bulletsInZone[event.detail.id];
         }
-    }
+    };
 
-    display() {
+    displayRadar() {
         this.#displayBullets();
         this.#displayBombs();
     }
