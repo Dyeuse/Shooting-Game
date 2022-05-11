@@ -1,5 +1,5 @@
 import Bullet from "./bullet";
-import { calcIntermediateCoord } from "./vector";
+import { calcIntermediateCoord } from "./utilities/vector";
 
 class Gun {
     constructor(zone) {

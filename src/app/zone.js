@@ -1,4 +1,4 @@
-import { calcCanvasMeasure, calcCanvasSize } from "./canvasCalc";
+import { calcCanvasMeasure, calcCanvasSize } from "./utilities/canvasCalc";
 
 class Zone {
     constructor(container) {

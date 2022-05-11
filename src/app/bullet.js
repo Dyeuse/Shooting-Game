@@ -1,4 +1,4 @@
-import { calcComponents, calcIntermediateCoord, calcMagnitude } from "./vector";
+import { calcComponents, calcIntermediateCoord, calcMagnitude } from "./utilities/vector";
 
 class Bullet {
     bulletID = Date.now();

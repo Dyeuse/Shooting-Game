@@ -3,8 +3,8 @@ import Radar from "./radar";
 import Bomber from "./bomber";
 import Gun from "./gun";
 import Sky from "./sky";
-import pathsClouds from "./pathsClouds";
-import manageResizing from "./resizing";
+import pathsClouds from "./utilities/pathsClouds";
+import manageResizing from "./utilities/resizing";
 
 const container = document.querySelector(".container");
 const zone = new Zone(container);
