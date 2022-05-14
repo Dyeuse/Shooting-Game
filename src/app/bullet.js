@@ -34,7 +34,7 @@ class Bullet {
         bombs.forEach((bomb) => {
             const bulletBombComponents = calcComponents(bomb.position, this.currentCoord);
             const bulletBombMagnitude = calcMagnitude(bulletBombComponents);
-            if (bulletBombMagnitude <= this.unity * 10) {
+            if (bulletBombMagnitude <= this.unity * 10 && !bomb.intercepted) {
                 this.#isOutOfZone();
                 this.#isIntercepted(bomb);
             }
