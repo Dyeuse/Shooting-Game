@@ -35,32 +35,23 @@ class Bomb {
     }
 
     displayExplosion() {
+        if (this.explosionStep > 25) {
+            this.#isDestroyed();
+            return;
+        }
         const {
             ctx,
             unity,
             explosionStep: step,
             position: { x, y },
         } = this;
-        let k = 0;
-        let color = "#000";
-        if (step <= 5) {
-            color = "#F00";
-            k = 6;
-        } else if (step <= 10) {
-            color = "#F33";
-            k = 10;
-        } else if (step <= 15) {
-            color = "#F63";
-            k = 15;
-        } else if (step <= 25) {
-            color = "#F66";
-            k = 25;
-        } else {
-            this.#isDestroyed();
-        }
+        const color = `rgba(${255}, 
+                            ${200 - step * 5}, 
+                            ${155 - step * 5}, 
+                            ${1 - step / 200})`;
         ctx.beginPath();
         ctx.fillStyle = color;
-        ctx.arc(x, y + unity * 15, unity * k, Math.PI * 4, 0, false);
+        ctx.arc(x, y + unity * 15, step * unity, Math.PI * 4, 0, false);
         ctx.fill();
         ctx.closePath();
     }
