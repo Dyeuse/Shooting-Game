@@ -21,5 +21,6 @@ bomber.raid();
     zone.ctx.clearRect(0, 0, Zone.size.width, Zone.size.height);
     gun.displayGun();
     radar.displayRadar();
+    radar.displayDashboard();
     requestAnimationFrame(draw);
 })();

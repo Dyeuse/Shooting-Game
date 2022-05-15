@@ -3,13 +3,24 @@ class Radar {
 
     bombsInZone = {};
 
+    droppedBombs = 0;
+
+    interceptedBombs = 0;
+
     constructor(zone) {
         this.zone = zone;
         this.canvas = zone.canvas;
+        this.container = zone.container;
+        this.infoForPlayer = this.container.querySelector(".infoForPlayer");
+        this.infoForPlayer.style.width = `${zone.constructor.size.width}px`;
+        this.bombsCounter = this.container.querySelector(".bombsCounter-info");
+        this.level = this.container.querySelector(".level-info");
+        this.score = this.container.querySelector(".score-info");
         this.canvas.addEventListener("shoot", this.#handleShoot);
         this.canvas.addEventListener("drop", this.#handleDrop);
         this.canvas.addEventListener("isIntercepted", this.#handleIsIntercepted);
         this.canvas.addEventListener("isOutOfZone", this.#handleIsOutOfZone);
+        this.zone.container.addEventListener("resizeGame", this.#handleResizeGame);
     }
 
     #handleShoot = (event) => {
@@ -17,10 +28,12 @@ class Radar {
     };
 
     #handleDrop = (event) => {
+        this.droppedBombs += 1;
         this.bombsInZone[event.detail.bombID] = event.detail;
     };
 
     #handleIsIntercepted = (event) => {
+        this.interceptedBombs += 1;
         this.bombsInZone[event.detail.id].intercepted = true;
     };
 
@@ -32,9 +45,19 @@ class Radar {
         }
     };
 
+    #handleResizeGame = (event) => {
+        this.infoForPlayer.style.width = `${event.detail.width}px`;
+    };
+
     displayRadar() {
         this.#displayBullets();
         this.#displayBombs();
+    }
+
+    displayDashboard() {
+        this.bombsCounter.textContent = this.droppedBombs;
+        this.level.textContent = Math.ceil(this.droppedBombs / 10);
+        this.score.textContent = this.interceptedBombs;
     }
 
     #displayBullets() {
