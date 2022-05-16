@@ -6,37 +6,37 @@ class Bomber {
     constructor(zone) {
         Object.assign(this, zone);
         this.zone = zone;
-        this.zoneSize = zone.constructor.size;
         this.unity = zone.constructor.size.width / 100;
+        this.bombVelocity = this.unity;
         this.container.addEventListener("resizeGame", this.handleResizeGame);
     }
 
     handleResizeGame = (event) => {
-        this.zoneSize = event.detail;
+        this.unity = event.detail.width / 100;
+        this.bombVelocity = this.unity / 1.5;
     };
 
     raid = () => {
         const that = this;
         let droppedBombs = 0;
         let delay = 2000;
-        let velocity = that.unity / 1.5;
 
         that.raidInProgress = setTimeout(function drop() {
-            that.#dropABomb(velocity);
+            that.#dropABomb();
             droppedBombs += 1;
             if (droppedBombs < 100) {
                 that.raidInProgress = setTimeout(drop, delay);
             }
             if (droppedBombs % 10 === 0 && delay > 400) {
                 delay -= 200;
-                velocity += that.unity / 20;
+                that.bombVelocity += that.unity / 20;
             }
         }, delay);
     };
 
     get bombHorizontalCoord() {
         // Bombs can appear in 5 columns
-        let x = this.zoneSize.width / 10;
+        let x = this.unity * 10;
         const col = Math.floor(Math.random() * 5 + 1);
         switch (col) {
             case 1:
@@ -56,10 +56,10 @@ class Bomber {
         return x;
     }
 
-    #dropABomb(velocity) {
+    #dropABomb() {
         const position = { x: this.bombHorizontalCoord, y: 0 };
         const event = new CustomEvent("drop", {
-            detail: new Bomb(this.zone, position, velocity),
+            detail: new Bomb(this.zone, position, this.bombVelocity),
         });
         this.canvas.dispatchEvent(event);
     }
