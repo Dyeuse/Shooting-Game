@@ -20,7 +20,7 @@ class Bomber {
         const that = this;
         let droppedBombs = 0;
         let delay = 2000;
-
+        // Recursive setTimeout instead of setInterval to allow the modification of the delay parameter
         that.raidInProgress = setTimeout(function drop() {
             that.#dropABomb();
             droppedBombs += 1;
