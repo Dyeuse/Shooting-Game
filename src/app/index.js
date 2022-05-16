@@ -10,23 +10,22 @@ const container = document.querySelector(".container");
 const start = document.querySelector("button");
 const zone = new Zone(container);
 const radar = new Radar(zone);
+const bomber = new Bomber(zone);
 const gun = new Gun(zone);
 const sky = new Sky(zone);
-let bomber = new Bomber(zone);
-let gameInProgress = false;
 
 propagateResizing(zone);
 sky.displayClouds(pathsClouds);
 
 start.addEventListener("click", () => {
-    if (gameInProgress) {
+    if (bomber.raidInProgress) {
+        clearTimeout(bomber.raidInProgress);
         radar.bulletsInZone = {};
         radar.bombsInZone = {};
         radar.droppedBombs = 0;
         radar.interceptedBombs = 0;
     }
-    bomber = new Bomber(zone);
-    gameInProgress = bomber.raid();
+    bomber.raid();
 });
 
 (function draw() {

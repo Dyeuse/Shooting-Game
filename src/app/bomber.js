@@ -1,6 +1,8 @@
 import Bomb from "./bomb";
 
 class Bomber {
+    raidInProgress = 0;
+
     constructor(zone) {
         Object.assign(this, zone);
         this.zone = zone;
@@ -16,21 +18,20 @@ class Bomber {
     raid = () => {
         const that = this;
         let droppedBombs = 0;
-        let cadence = 2000;
+        let delay = 2000;
         let velocity = that.unity / 1.5;
-        let airdropPhase = setTimeout(function drop() {
+
+        that.raidInProgress = setTimeout(function drop() {
             that.#dropABomb(velocity);
             droppedBombs += 1;
-            if (droppedBombs % 10 === 0 && cadence > 400) {
-                cadence -= 200;
+            if (droppedBombs < 100) {
+                that.raidInProgress = setTimeout(drop, delay);
+            }
+            if (droppedBombs % 10 === 0 && delay > 400) {
+                delay -= 200;
                 velocity += that.unity / 20;
             }
-            airdropPhase = setTimeout(drop, cadence);
-            if (droppedBombs >= 100) {
-                clearTimeout(airdropPhase);
-            }
-        }, cadence);
-        return airdropPhase;
+        }, delay);
     };
 
     get bombHorizontalCoord() {
