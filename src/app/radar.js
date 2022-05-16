@@ -20,6 +20,7 @@ class Radar {
         this.canvas.addEventListener("drop", this.#handleDrop);
         this.canvas.addEventListener("isIntercepted", this.#handleIsIntercepted);
         this.canvas.addEventListener("isOutOfZone", this.#handleIsOutOfZone);
+        this.canvas.addEventListener("resetRadar", this.#handleResetRadar);
         this.zone.container.addEventListener("resizeGame", this.#handleResizeGame);
     }
 
@@ -43,6 +44,13 @@ class Radar {
         } else {
             delete this.bulletsInZone[event.detail.id];
         }
+    };
+
+    #handleResetRadar = () => {
+        this.bulletsInZone = {};
+        this.bombsInZone = {};
+        this.droppedBombs = 0;
+        this.interceptedBombs = 0;
     };
 
     #handleResizeGame = (event) => {
