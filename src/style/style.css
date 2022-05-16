@@ -44,10 +44,27 @@ canvas {
     animation: animate calc(8s * var(--velocity)) linear infinite;
 }
 
-.infoForPlayer {
+.go-and-info {
     order: 1;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.infoForPlayer {
     border: 1px dashed aliceblue;
-    margin: 1px 0 10px;
+    margin: 10px 0;
+}
+
+button {
+    display: inline-block;
+    width: 20%;
+    border-radius: 5%;
+    color: aliceblue;
+    background-color: transparent;
+}
+
+button:hover {
+    background-color: rgb(194, 58, 58);
 }
 
 .infoForPlayer div {

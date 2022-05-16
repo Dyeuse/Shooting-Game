@@ -13,6 +13,26 @@ class Bomber {
         this.zoneSize = event.detail;
     };
 
+    raid = () => {
+        const that = this;
+        let droppedBombs = 0;
+        let cadence = 2000;
+        let velocity = that.unity / 1.5;
+        let airdropPhase = setTimeout(function drop() {
+            that.#dropABomb(velocity);
+            droppedBombs += 1;
+            if (droppedBombs % 10 === 0 && cadence > 400) {
+                cadence -= 200;
+                velocity += that.unity / 20;
+            }
+            airdropPhase = setTimeout(drop, cadence);
+            if (droppedBombs >= 100) {
+                clearTimeout(airdropPhase);
+            }
+        }, cadence);
+        return airdropPhase;
+    };
+
     get bombHorizontalCoord() {
         // Bombs can appear in 5 columns
         let x = this.zoneSize.width / 10;
@@ -33,25 +53,6 @@ class Bomber {
                 x *= 9;
         }
         return x;
-    }
-
-    raid() {
-        const that = this;
-        let droppedBombs = 0;
-        let cadence = 2000;
-        let velocity = that.unity / 1.5;
-        let airdropPhase = setTimeout(function drop() {
-            that.#dropABomb(velocity);
-            droppedBombs += 1;
-            if (droppedBombs % 10 === 0 && cadence > 400) {
-                cadence -= 200;
-                velocity += that.unity / 20;
-            }
-            airdropPhase = setTimeout(drop, cadence);
-            if (droppedBombs >= 100) {
-                clearTimeout(airdropPhase);
-            }
-        }, cadence);
     }
 
     #dropABomb(velocity) {
