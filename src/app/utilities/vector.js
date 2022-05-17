@@ -1,57 +1,23 @@
-// @ts-check
-
-/**
- *
- * @typedef cartesianCoordinates
- * @type {object}
- * @property {number} x - Abscissa
- * @property {number} y - Ordinate
- *
- * @typedef vectorComponents
- * @type {object}
- * @property {number} x - horizontal component
- * @property {number} y - vertical component
- */
-
-/**
- *
- * @function
- * @param {cartesianCoordinates} coordA
- * @param {cartesianCoordinates} coordB
- * @returns {vectorComponents} Components of the vector AB (= coordinates)
- */
-const calcComponents = (coordA, coordB) => ({
+const calcVectorComponents = (coordA, coordB) => ({
     x: coordB.x - coordA.x,
     y: coordB.y - coordA.y,
 });
 
-/**
- *
- * @function
- * @param {vectorComponents} compo -
- * @returns {number} Vector's magnitude (= length)
- */
-const calcMagnitude = (compo) => Math.abs(Math.sqrt(compo.x ** 2 + compo.y ** 2));
+const calcVectorMagnitude = (vectorComponents) =>
+    Math.abs(Math.sqrt(vectorComponents.x ** 2 + vectorComponents.y ** 2));
 
-/**
- * @function
- * @param {number} magnitude
- * @param {number} includedLength
- * @returns {number} Dividing coefficient (number of times a length is in a magnitude)
- */
+// This function calculates how many times a length is include in a vector magnitude
 const calcCoefficient = (magnitude, includedLength) => magnitude / includedLength;
 
-/**
- *
- * @function
- * @param {cartesianCoordinates} coordA
- * @param {cartesianCoordinates} coordB
- * @param {number} includedLength
- * @returns {cartesianCoordinates} Cartesian coordinates of a vector'point
+/* Use case
+ * coordA : the gun barrel tip,
+ * coordB : the crosshair position when shooting
+ * includedLength : the distance between the bullet and the gun barrel tip
+ * => intermediateCoord : the bullet coordinates
  */
 const calcIntermediateCoord = (coordA, coordB, includedLength) => {
-    const componentsAB = calcComponents(coordA, coordB);
-    const magnitudeAB = calcMagnitude(componentsAB);
+    const componentsAB = calcVectorComponents(coordA, coordB);
+    const magnitudeAB = calcVectorMagnitude(componentsAB);
     const dividingCoefficient = calcCoefficient(magnitudeAB, includedLength);
     return {
         x: coordA.x + componentsAB.x / dividingCoefficient,
@@ -59,4 +25,9 @@ const calcIntermediateCoord = (coordA, coordB, includedLength) => {
     };
 };
 
-export { calcComponents, calcMagnitude, calcCoefficient, calcIntermediateCoord };
+export {
+    calcVectorComponents,
+    calcVectorMagnitude,
+    calcCoefficient,
+    calcIntermediateCoord,
+};

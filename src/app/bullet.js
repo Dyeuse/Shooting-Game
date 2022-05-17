@@ -1,4 +1,8 @@
-import { calcComponents, calcIntermediateCoord, calcMagnitude } from "./utilities/vector";
+import {
+    calcVectorComponents,
+    calcIntermediateCoord,
+    calcVectorMagnitude,
+} from "./utilities/vector";
 
 class Bullet {
     bulletID = Date.now();
@@ -32,8 +36,11 @@ class Bullet {
 
     checkImpact(bombs) {
         bombs.forEach((bomb) => {
-            const bulletBombComponents = calcComponents(bomb.position, this.currentCoord);
-            const bulletBombMagnitude = calcMagnitude(bulletBombComponents);
+            const bulletBombComponents = calcVectorComponents(
+                bomb.position,
+                this.currentCoord
+            );
+            const bulletBombMagnitude = calcVectorMagnitude(bulletBombComponents);
             if (bulletBombMagnitude <= this.unity * 10 && !bomb.intercepted) {
                 this.#isOutOfZone();
                 this.#isIntercepted(bomb);
