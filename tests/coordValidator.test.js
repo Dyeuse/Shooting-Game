@@ -1,4 +1,4 @@
-import checkCoord from "../src/app/coordValidator";
+import checkCoord from "../src/app/utilities/coordValidator";
 
 describe.skip("Coordinates validation", () => {
     const coord1 = { x: 0, y: 0 };

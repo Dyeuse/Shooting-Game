@@ -1,4 +1,4 @@
-import { calcVectorComponents, calcVectorMagnitude } from "../src/app/vector";
+import { calcVectorComponents, calcVectorMagnitude } from "../src/app/utilities/vector";
 
 describe("Vectors operations", () => {
     const coordA = { x: 0, y: 0 };
