@@ -1,27 +1,29 @@
 # The Shooting Game
 
-Auteur : <ins>Dyeuse</ins>
-<br />Date de la dernière version : <ins>mai 2022</ins>
+Author : <ins>Dyeuse</ins>
+<br />Last release : <ins>may 2022</ins>
 
-**[===> JOUER <===](www.google.com)**
+<img src="./src/media/game-cap.png" alt="Capture of the game" style="width: 600px"/>
+
+**[===> PLAY <===](https://the-shooting-game.netlify.app/)**
 
 ## Description
 
--   Ce projet est un démonstrateur de compétences
--   Développé en vanilla JS
--   Privilégiant l'emploi de ES6/+
--   Exécuté directement côté navigateur
+-   This is a skills demonstrating project
+-   Developed in Vanilla JS
+-   Favorizing the usage of ES6/+
+-   Navigator side executed
 
-Le choix d'un jeu de type "shooting" a été retenu car son développement présente des défis techniques variés.
+A shooting game was selected for the multiple technical challenges it brings in the development process.
 
-## Paradigmes utilisés
+## Paradigms Used
 
--   Programmation orientée objet
--   Programmation événementielle
+-   Object oriented programmation
+-   Event programmation
 
-    _+ Règles stylistiques d'Airbnb_
+    _+ Airbnb style rules_
 
-## Principaux outils
+## Main tools
 
 -   Babel
 -   Npm
@@ -31,38 +33,38 @@ Le choix d'un jeu de type "shooting" a été retenu car son développement prés
 -   Jest
 -   Parcel
 
-### _Remarque_
+### _Notice_
 
-Il était initialement prévu d'utiliser JSDoc notamment afin de bénéficier du "TypeScript check". Mais l'outil n'étant plus mis à jour depuis 2017, cette option n'a pas été retenue.
+The use of JSDoc was considered in order to benefit from the “TypeScript check”. But since the tool hasn’t been updated since 2017 its usage was discarded.
 
-## Considérations techniques
+## Technical considerations
 
-### _La partie applicative se construie autour de 7 classes :_
+### _The application part is constructed with 7 classes :_
 
 1. Zone
-    > La classe Zone est la première à être instanciée. Elle établie le périmètre du jeu à partir des dimentions de l'écran de l'utilisateur et d'un conteneur fourni comme argument. Son instance est transmise directement ou indirectement comme argument à tous les autres appel de classe.
+    > The Zone class is the first to be instantiated. It determines the perimeter of the game based on the user screen size and a container given as an argument. Its instance is transmitted directly or indirectly as an argument to all other class calls.
 2. Radar
-    > La classe Radar surveille grace à des écouteurs d'événements la zone et rend compte de ce qui si passe. Elle détecte les tires de balles, les largages de bombes, les sorties de zone et les éventuelles interceptions. Elle tient à jour le compte des projectiles actifs dans la zone.
+    > The Radar class monitors the zone using events listeners and reports the activity of the zone. It detects bullets shootings, bombs droppings, zone exits and interceptions; It keeps track of all the active projectiles in the zone.
 3. Sky
-    > La classe Sky permet de créer une couverture nuageuse évolutive rendant le jeux plus réaliste. Elle ne dispose que d'une seule méthode publique _(displayClouds)_. Celle-ci doit être appelée avec une liste contenant les chemins vers les différentes images de nuages à afficher.
+    > The Sky class allows the creation of an evolutive cloud cover that gives a more realistic aspect to the game. It only has one public method _(displayClouds)_. Furthermore, it has to be called with a list containing the paths to the different cloud images to display.
 4. Gun
-    > L'instance de la classe Gun est le seul object pouvant être manipulé directement par l'utilisateur via la souris _(exception faite du redimentionnement)_. C'est aussi le seul endroit où sont créées des intances de la classe Bullet suite à un clic dans la zone.
+    > The instance of the Gun class is the only object to be directly manipulated by the user via the mouse _(except resizing)_. It is the only location where the Bullet class instances are created by a click in the zone.
 5. Bullet
-    > Une instance de la classe Bullet est créée lorsque le joueur clic dans la zone. La position du canon et du curseur en détermine la direction. C'est cette classe qui fournie la méthode _(checkImpact)_ permettant de déterminer une colision entre une bombe et une balle.
+    > An instance of the Bullet class is created when the user clicks in the zone. Its direction is determined by the positions of the barrel tip and the cursor. This class gives the method _(checkImpact)_ that allows the determination of a collision between a bomb and a bullet.
 6. Bomber
-    > Cette classe est la seule dont l'instance reste invisible à l'utilisateur. On considére que le bombardier évolue au-dessus de la couche nuageuse. Son existance rend plus cohérente la gestion des phases de bombardement. C'est aussi le seul endroit où sont créées des instances de la classe Bomb.
+    > This class is the only invisible instance to the user. The bomber is considered to evolve above the cloud cover. Its existence allows more coherence in the management of the bombing phases. It is the only location where the Bomb class instances are created.
 7. Bomb
-    > Cette classe gère principalement le rendu des instances de bombes, mais aussi le rendu de leur explosion. Les bombes sont générées de manière entièrement automatique par l'instance de la classe Bomber _(lors de l'appel de la méthode raid)_.
+    > This class manages predominantly the aspect of the bomb instances and their explosion. The bombs are automatically generated by the Bomber class instance _(During raid method calling)_.
 
-Les classes ont été construites de sorte à être indépendantes les unes des autres. Deux exceptions sont à noter, les classes Bullet et Bomb qui sont par nature fortement couplées respectivement aux class Gun et Bomber.
+The classes were built to be independent from each other; With the exception of the Bullet class and the Bomb class who are strongly coupled to the Gun class and the Bomber class.
 
-### _Chacune des classes respecte l'ordre de définition suivants :_
+### _Each classes follows the following definition order:_
 
-1. Champs de classe de propriété de donnée
-2. Fonction constructor
-3. Champs de classe de propriété de fonction
-4. Accesseurs et mutateurs
-5. Méthodes d'intance
-6. Méthodes statiques
+1. Class fields of data properties
+2. Constructor method
+3. Class fields of function properties
+4. Getter and setter
+5. Instance methods
+6. Static methods
 
-    _+ Les propriétés ou méthodes publiques sont placées avant les privées_
+    _+ The properties or public methods are placed before the private ones._
