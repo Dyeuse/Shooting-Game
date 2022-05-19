@@ -3,7 +3,7 @@ import Radar from "./radar";
 import Bomber from "./bomber";
 import Gun from "./gun";
 import Sky from "./sky";
-import pathsClouds from "./utilities/pathsClouds";
+import cloudsPaths from "./utilities/cloudsPaths";
 import propagateResizing from "./utilities/resizing";
 import startGame from "./utilities/startGame";
 
@@ -15,7 +15,7 @@ const gun = new Gun(zone);
 const sky = new Sky(zone);
 
 propagateResizing(zone);
-sky.displayClouds(pathsClouds);
+sky.displayClouds(cloudsPaths);
 startGame(bomber);
 
 (function draw() {
