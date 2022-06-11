@@ -4,6 +4,7 @@ class Sky {
         this.sky = document.createElement("div");
         this.sky.style.height = `${this.sizeZone.height}px`;
         this.sky.style.width = `${this.sizeZone.width}px`;
+        this.sky.style.userSelect = "none";
         this.sky.classList.add("sky");
         zone.container.appendChild(this.sky);
         zone.container.addEventListener("resizeGame", this.#handleResizeGame);
