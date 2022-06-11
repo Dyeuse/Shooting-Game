@@ -59,6 +59,7 @@ button {
     display: inline-block;
     width: 20%;
     border-radius: 5%;
+    border: 2px outset aliceblue;
     color: aliceblue;
     background-color: transparent;
 }
