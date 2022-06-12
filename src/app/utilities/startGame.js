@@ -1,14 +1,27 @@
 function startGame(bomber) {
-    const start = document.querySelector("button");
+    const go = document.querySelector("#go");
+    const reset = document.querySelector("#reset");
+    const pause = document.querySelector("#pause");
 
-    start.addEventListener("click", () => {
-        start.innerText = "New";
-        if (bomber.raidInProgress) {
-            clearTimeout(bomber.raidInProgress);
-            const event = new CustomEvent("resetRadar");
-            bomber.canvas.dispatchEvent(event);
-        }
+    go.addEventListener("click", () => {
+        go.style.display = "none";
+        reset.style.display = "inline-block";
+        pause.style.display = "inline-block";
         bomber.raid();
+    });
+
+    reset.addEventListener("click", () => {
+        pause.innerHTML = "Pause";
+        clearTimeout(bomber.raidInProgress);
+        const event = new CustomEvent("resetRaid");
+        bomber.canvas.dispatchEvent(event);
+        bomber.raid();
+    });
+
+    pause.addEventListener("click", () => {
+        pause.innerHTML = pause.innerHTML === "Play" ? "Pause" : "Play";
+        const event = new CustomEvent("toggleRaid");
+        bomber.canvas.dispatchEvent(event);
     });
 }
 

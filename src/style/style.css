@@ -64,7 +64,13 @@ button {
     background-color: transparent;
 }
 
+#reset,
+#pause {
+    display: none;
+}
+
 button:hover {
+    cursor: pointer;
     background-color: rgb(194, 58, 58);
 }
 

@@ -3,17 +3,30 @@ import Bomb from "./bomb";
 class Bomber {
     raidInProgress = 0;
 
+    raidSuspending = false;
+
     constructor(zone) {
         Object.assign(this, zone);
         this.zone = zone;
         this.unity = zone.constructor.size.width / 100;
         this.bombVelocity = this.unity;
         this.container.addEventListener("resizeGame", this.handleResizeGame);
+        this.canvas.addEventListener("toggleRaid", this.handleToggleRaid);
+        this.canvas.addEventListener("resetRaid", this.handleResetRaid);
     }
 
     handleResizeGame = (event) => {
         this.unity = event.detail.width / 100;
         this.bombVelocity = this.unity / 1.5;
+    };
+
+    handleToggleRaid = () => {
+        this.raidSuspending = !this.raidSuspending;
+    };
+
+    handleResetRaid = () => {
+        this.raidInProgress = 0;
+        this.raidSuspending = false;
     };
 
     raid = () => {
@@ -22,8 +35,10 @@ class Bomber {
         let delay = 2000;
         // Recursive setTimeout instead of setInterval to allow the modification of the delay parameter
         that.raidInProgress = setTimeout(function drop() {
-            that.#dropABomb();
-            droppedBombs += 1;
+            if (!that.raidSuspending) {
+                that.#dropABomb();
+                droppedBombs += 1;
+            }
             if (droppedBombs < 100) {
                 that.raidInProgress = setTimeout(drop, delay);
             }
