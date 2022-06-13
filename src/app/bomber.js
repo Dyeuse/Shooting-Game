@@ -11,9 +11,9 @@ class Bomber {
         this.unity = zone.constructor.size.width / 100;
         this.bombVelocity = this.unity;
         this.container.addEventListener("resizeGame", this.handleResizeGame);
-        this.canvas.addEventListener("toggleRaid", this.handleToggleRaid);
         this.canvas.addEventListener("resetRaid", this.handleResetRaid);
         this.canvas.addEventListener("suspendRaid", this.handleSuspendRaid);
+        this.canvas.addEventListener("restartRaid", this.handleRestartRaid);
     }
 
     handleResizeGame = (event) => {
@@ -21,17 +21,18 @@ class Bomber {
         this.bombVelocity = this.unity / 1.5;
     };
 
-    handleToggleRaid = () => {
-        this.raidSuspending = !this.raidSuspending;
-    };
-
     handleResetRaid = () => {
-        this.raidInProgress = 0;
         this.raidSuspending = false;
+        clearTimeout(this.raidInProgress);
+        this.raidInProgress = 0;
     };
 
     handleSuspendRaid = () => {
         this.raidSuspending = true;
+    };
+
+    handleRestartRaid = () => {
+        this.raidSuspending = false;
     };
 
     raid = () => {

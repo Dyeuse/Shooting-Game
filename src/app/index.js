@@ -5,9 +5,14 @@ import Gun from "./gun";
 import Sky from "./sky";
 import cloudsPaths from "./utilities/cloudsPaths";
 import propagateResizing from "./utilities/resizing";
-import startGame from "./utilities/startGame";
+import Game from "./utilities/game";
 
 const container = document.querySelector(".container");
+const start = document.querySelector("#start");
+const reset = document.querySelector("#reset");
+const pause = document.querySelector("#pause");
+const buttons = { start, reset, pause };
+
 const zone = new Zone(container);
 const radar = new Radar(zone);
 const bomber = new Bomber(zone);
@@ -16,12 +21,7 @@ const sky = new Sky(zone);
 
 propagateResizing(zone);
 sky.displayClouds(cloudsPaths);
-startGame(bomber);
 
-(function draw() {
-    zone.ctx.clearRect(0, 0, Zone.size.width, Zone.size.height);
-    gun.displayGun();
-    radar.displayRadar();
-    radar.displayDashboard();
-    requestAnimationFrame(draw);
+(function newGame() {
+    return new Game(zone, radar, bomber, gun, buttons);
 })();
