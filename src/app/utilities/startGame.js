@@ -23,6 +23,14 @@ function startGame(bomber) {
         const event = new CustomEvent("toggleRaid");
         bomber.canvas.dispatchEvent(event);
     });
+
+    document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "hidden") {
+            pause.innerHTML = "Play";
+            const event = new CustomEvent("suspendRaid");
+            bomber.canvas.dispatchEvent(event);
+        }
+    });
 }
 
 export default startGame;

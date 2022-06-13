@@ -13,6 +13,7 @@ class Bomber {
         this.container.addEventListener("resizeGame", this.handleResizeGame);
         this.canvas.addEventListener("toggleRaid", this.handleToggleRaid);
         this.canvas.addEventListener("resetRaid", this.handleResetRaid);
+        this.canvas.addEventListener("suspendRaid", this.handleSuspendRaid);
     }
 
     handleResizeGame = (event) => {
@@ -27,6 +28,10 @@ class Bomber {
     handleResetRaid = () => {
         this.raidInProgress = 0;
         this.raidSuspending = false;
+    };
+
+    handleSuspendRaid = () => {
+        this.raidSuspending = true;
     };
 
     raid = () => {
