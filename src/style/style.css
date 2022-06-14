@@ -1,29 +1,29 @@
 @import "reset.css";
 
 body {
-    color: aliceblue;
     background-color: rgb(2, 2, 46);
+    color: aliceblue;
 }
 
 h1 {
-    text-align: center;
-    font-size: 2em;
     margin: 5px 0;
+    font-size: 2em;
+    text-align: center;
 }
 
 .container {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
     background-color: brown;
 }
 
 canvas,
 .sky {
-    border: 5px ridge rgb(187, 15, 15);
-    cursor: url(../media/crosshair.svg) 15 15, auto;
-    margin-top: 10px;
     order: 1;
+    border: 5px ridge rgb(187, 15, 15);
+    margin-top: 10px;
+    cursor: url(../media/crosshair.svg) 15 15, auto;
 }
 
 canvas {
@@ -40,33 +40,33 @@ canvas {
 .sky img {
     position: absolute;
     bottom: 0;
-    max-width: 100%;
     animation: animate calc(8s * var(--velocity)) linear infinite;
+    max-width: 100%;
 }
 
 .info-player {
-    background-color: brown;
-    text-align: center;
     padding-top: 10px;
+    background-color: brown;
     font-size: 1.5rem;
+    text-align: center;
 }
 
 .buttons {
-    background-color: brown;
-    text-align: center;
     order: 2;
     padding: 10px;
+    background-color: brown;
+    text-align: center;
 }
 
 button {
     display: inline-block;
-    border-radius: 5%;
     border: 2px outset aliceblue;
-    color: aliceblue;
+    border-radius: 5%;
+    padding: 3px 20px;
     background-color: transparent;
+    color: aliceblue;
     font-size: 1rem;
     font-weight: 500;
-    padding: 3px 20px;
 }
 
 #reset,
@@ -75,8 +75,8 @@ button {
 }
 
 button:hover {
-    cursor: pointer;
     background-color: rgb(194, 58, 58);
+    cursor: pointer;
 }
 
 @keyframes animate {
