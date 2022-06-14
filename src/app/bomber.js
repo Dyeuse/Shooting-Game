@@ -38,18 +38,18 @@ class Bomber {
     raid = () => {
         const that = this;
         let droppedBombs = 0;
-        let delay = 2000;
+        let delay = 1500;
         // Recursive setTimeout instead of setInterval to allow the modification of the delay parameter
         that.raidInProgress = setTimeout(function drop() {
             if (!that.raidSuspending) {
                 that.#dropABomb();
                 droppedBombs += 1;
             }
-            if (droppedBombs < 100) {
+            if (droppedBombs < 60) {
                 that.raidInProgress = setTimeout(drop, delay);
             }
-            if (droppedBombs % 10 === 0 && delay > 400) {
-                delay -= 200;
+            if (droppedBombs % 3 === 0 && delay > 300) {
+                delay -= 100;
                 that.bombVelocity += that.unity / 20;
             }
         }, delay);
