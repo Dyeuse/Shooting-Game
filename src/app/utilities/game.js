@@ -11,6 +11,7 @@ class Game {
         this.start = buttons.start;
         this.reset = buttons.reset;
         this.pause = buttons.pause;
+        this.zone.canvas.style.pointerEvents = "none";
         this.start.addEventListener("click", this.startGame);
         this.reset.addEventListener("click", this.resetGame);
         this.pause.addEventListener("click", this.pauseGame);
@@ -21,6 +22,7 @@ class Game {
         this.start.style.display = "none";
         this.reset.style.display = "inline-block";
         this.pause.style.display = "inline-block";
+        this.zone.canvas.style.pointerEvents = "auto";
         this.draw();
         this.bomber.raid();
     };
@@ -43,7 +45,10 @@ class Game {
     };
 
     handleVisibilitychange = () => {
-        if (document.visibilityState === "hidden") {
+        if (
+            document.visibilityState === "hidden" &&
+            this.start.style.display === "none"
+        ) {
             this.#pause();
         }
     };
