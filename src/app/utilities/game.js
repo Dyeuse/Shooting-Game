@@ -12,22 +12,22 @@ class Game {
         this.reset = buttons.reset;
         this.pause = buttons.pause;
         this.zone.canvas.style.pointerEvents = "none";
-        this.start.addEventListener("click", this.startGame);
-        this.reset.addEventListener("click", this.resetGame);
-        this.pause.addEventListener("click", this.pauseGame);
-        document.addEventListener("visibilitychange", this.handleVisibilitychange);
+        this.start.addEventListener("click", this.#startGame);
+        this.reset.addEventListener("click", this.#resetGame);
+        this.pause.addEventListener("click", this.#pauseGame);
+        document.addEventListener("visibilitychange", this.#handleVisibilitychange);
     }
 
-    startGame = () => {
+    #startGame = () => {
         this.start.style.display = "none";
         this.reset.style.display = "inline-block";
         this.pause.style.display = "inline-block";
         this.zone.canvas.style.pointerEvents = "auto";
-        this.draw();
+        this.#draw();
         this.bomber.raid();
     };
 
-    resetGame = () => {
+    #resetGame = () => {
         if (this.gameInPause) {
             this.#restart();
         }
@@ -36,7 +36,7 @@ class Game {
         this.bomber.raid();
     };
 
-    pauseGame = () => {
+    #pauseGame = () => {
         if (this.pause.innerHTML === "Pause") {
             this.#pause();
         } else {
@@ -44,7 +44,7 @@ class Game {
         }
     };
 
-    handleVisibilitychange = () => {
+    #handleVisibilitychange = () => {
         if (
             document.visibilityState === "hidden" &&
             this.start.style.display === "none"
@@ -53,13 +53,13 @@ class Game {
         }
     };
 
-    draw = () => {
+    #draw = () => {
         if (!this.gameInPause) {
             const { width, height } = this.zone.constructor.size;
             this.zone.ctx.clearRect(0, 0, width, height);
             this.gun.displayGun();
             this.radar.displayRadar();
-            this.drawID = requestAnimationFrame(this.draw);
+            this.drawID = requestAnimationFrame(this.#draw);
         }
     };
 
@@ -69,7 +69,7 @@ class Game {
         const event = new CustomEvent("restartRaid");
         this.bomber.canvas.dispatchEvent(event);
         this.zone.canvas.style.pointerEvents = "auto";
-        this.draw();
+        this.#draw();
     }
 
     #pause() {
