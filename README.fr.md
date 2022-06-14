@@ -1,5 +1,8 @@
 # The Shooting Game
 
+[<img src="./src/media/british-flag.svg" alt="The British flag" style="width: 30px"/>](./README.md)
+[<img src="./src/media/french-flag.svg" alt="The French flag" style="width: 30px"/>](./README.fr.md)
+
 Auteur : <ins>Dyeuse</ins>
 <br />Dernière version : <ins>mai 2022</ins>
 
