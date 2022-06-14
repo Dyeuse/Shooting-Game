@@ -22,7 +22,7 @@ h1 {
 canvas,
 .sky {
     border: 5px ridge rgb(187, 15, 15);
-    cursor: crosshair;
+    cursor: url(../media/crosshair.svg) 15 15, auto;
     margin-top: 10px;
 }
 
