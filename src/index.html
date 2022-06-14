@@ -9,23 +9,15 @@
     </head>
     <body>
         <h1>Shoot the bombs!</h1>
+        <div class="info-player">Score : <span class="score"></span> / 100</div>
         <div class="container">
             <!-- <canvas>This is a shooting game!</canvas> -->
             <!-- Rendering logic -->
-            <div class="go-and-info">
-                <button id="start">Start</button>
-                <button id="reset">Reset</button>
-                <button id="pause">Pause</button>
-                <div class="infoForPlayer">
-                    <div class="bombsCounter">
-                        Bombs : <span class="bombsCounter-info"></span> / 100
-                    </div>
-                    <div class="level">Level : <span class="level-info"></span> / 10</div>
-                    <div class="score">
-                        Score : <span class="score-info"></span> / 100
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div class="buttons">
+            <button id="start">Start</button>
+            <button id="reset">Reset</button>
+            <button id="pause">Pause</button>
         </div>
         <script type="module" src="./app/index.js"></script>
     </body>

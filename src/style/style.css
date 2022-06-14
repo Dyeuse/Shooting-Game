@@ -8,11 +8,10 @@ body {
 h1 {
     text-align: center;
     font-size: 2em;
-    margin: 10px 0;
+    margin: 5px 0;
 }
 
 .container {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,6 +23,7 @@ canvas,
     border: 5px ridge rgb(187, 15, 15);
     cursor: url(../media/crosshair.svg) 15 15, auto;
     margin-top: 10px;
+    order: 1;
 }
 
 canvas {
@@ -44,24 +44,29 @@ canvas {
     animation: animate calc(8s * var(--velocity)) linear infinite;
 }
 
-.go-and-info {
-    order: 1;
-    margin-top: 10px;
+.info-player {
+    background-color: brown;
     text-align: center;
+    padding-top: 10px;
+    font-size: 1.5rem;
 }
 
-.infoForPlayer {
-    border: 1px dashed aliceblue;
-    margin: 10px 0;
+.buttons {
+    background-color: brown;
+    text-align: center;
+    order: 2;
+    padding: 10px;
 }
 
 button {
     display: inline-block;
-    width: 20%;
     border-radius: 5%;
     border: 2px outset aliceblue;
     color: aliceblue;
     background-color: transparent;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 3px 20px;
 }
 
 #reset,
@@ -72,10 +77,6 @@ button {
 button:hover {
     cursor: pointer;
     background-color: rgb(194, 58, 58);
-}
-
-.infoForPlayer div {
-    padding: 10px;
 }
 
 @keyframes animate {

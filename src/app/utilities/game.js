@@ -59,7 +59,6 @@ class Game {
             this.zone.ctx.clearRect(0, 0, width, height);
             this.gun.displayGun();
             this.radar.displayRadar();
-            this.radar.displayDashboard();
             this.drawID = requestAnimationFrame(this.draw);
         }
     };
