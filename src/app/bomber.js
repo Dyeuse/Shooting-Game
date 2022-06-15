@@ -47,6 +47,8 @@ class Bomber {
             }
             if (droppedBombs < 60) {
                 that.raidInProgress = setTimeout(drop, delay);
+            } else {
+                that.#finishRaid();
             }
             if (droppedBombs % 3 === 0 && delay > 300) {
                 delay -= 100;
@@ -82,6 +84,15 @@ class Bomber {
         const event = new CustomEvent("drop", {
             detail: new Bomb(this.zone, position, this.bombVelocity),
         });
+        this.canvas.dispatchEvent(event);
+    }
+
+    #finishRaid() {
+        this.raidInProgress = 0;
+        this.raidSuspending = false;
+        this.bombVelocity = this.unity;
+        clearTimeout(this.raidInProgress);
+        const event = new CustomEvent("endOfTheRaid");
         this.canvas.dispatchEvent(event);
     }
 }

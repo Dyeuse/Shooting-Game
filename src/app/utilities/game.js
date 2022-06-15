@@ -16,6 +16,7 @@ class Game {
         this.reset.addEventListener("click", this.#resetGame);
         this.pause.addEventListener("click", this.#pauseGame);
         document.addEventListener("visibilitychange", this.#handleVisibilitychange);
+        this.zone.canvas.addEventListener("endOfTheRaid", this.#handleEndOfTheRaid);
     }
 
     #startGame = () => {
@@ -23,6 +24,8 @@ class Game {
         this.reset.style.display = "inline-block";
         this.pause.style.display = "inline-block";
         this.zone.canvas.style.pointerEvents = "auto";
+        const event = new CustomEvent("startOfTheRaid");
+        this.bomber.canvas.dispatchEvent(event);
         this.#draw();
         this.bomber.raid();
     };
@@ -53,6 +56,15 @@ class Game {
         }
     };
 
+    #handleEndOfTheRaid = () => {
+        const idIterval = setInterval(() => {
+            if (Object.keys(this.radar.bombsInZone).length === 0) {
+                this.#resetData();
+                clearInterval(idIterval);
+            }
+        }, 100);
+    };
+
     #draw = () => {
         if (!this.gameInPause) {
             const { width, height } = this.zone.constructor.size;
@@ -62,6 +74,18 @@ class Game {
             this.drawID = requestAnimationFrame(this.#draw);
         }
     };
+
+    #resetData() {
+        setTimeout(() => {
+            this.gameInPause = false;
+            this.pause.innerHTML = "Pause";
+            this.start.style.display = "inline-block";
+            this.reset.style.display = "none";
+            this.pause.style.display = "none";
+            this.zone.canvas.style.pointerEvents = "none";
+            cancelAnimationFrame(this.drawID);
+        }, 1500);
+    }
 
     #restart() {
         this.gameInPause = false;

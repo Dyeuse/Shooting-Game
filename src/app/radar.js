@@ -17,6 +17,8 @@ class Radar {
         this.canvas.addEventListener("isIntercepted", this.#handleIsIntercepted);
         this.canvas.addEventListener("isOutOfZone", this.#handleIsOutOfZone);
         this.canvas.addEventListener("resetRaid", this.#handleResetRaid);
+        this.canvas.addEventListener("startOfTheRaid", this.#handleStartOfTheRaid);
+        this.canvas.addEventListener("endOfTheRaid", this.#handleEndOfTheRaid);
         this.zone.container.addEventListener("resizeGame", this.#handleResizeGame);
     }
 
@@ -51,6 +53,19 @@ class Radar {
         this.score.innerHTML = "";
     };
 
+    #handleStartOfTheRaid = () => {
+        this.score.innerHTML = "";
+    };
+
+    #handleEndOfTheRaid = () => {
+        const idInterval = setInterval(() => {
+            if (Object.keys(this.bombsInZone).length === 0) {
+                this.#resetData();
+                clearInterval(idInterval);
+            }
+        }, 100);
+    };
+
     #handleResizeGame = (event) => {
         this.infoForPlayer.style.width = `${event.detail.width}px`;
     };
@@ -58,6 +73,15 @@ class Radar {
     displayRadar() {
         this.#displayBullets();
         this.#displayBombs();
+    }
+
+    #resetData() {
+        setTimeout(() => {
+            this.bulletsInZone = {};
+            this.bombsInZone = {};
+            this.droppedBombs = 0;
+            this.interceptedBombs = 0;
+        }, 1500);
     }
 
     #displayBullets() {
