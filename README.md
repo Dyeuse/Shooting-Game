@@ -4,7 +4,7 @@
 [<img src="./src/media/french-flag.svg" alt="The French flag" style="width: 30px"/>](./README.fr.md)
 
 Author : <ins>Dyeuse</ins>
-<br />Last release : <ins>may 2022</ins>
+<br />Last release : <ins>June 2022</ins>
 
 <img src="./src/media/game-cap.png" alt="Capture of the game" style="width: 600px"/>
 
