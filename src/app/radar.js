@@ -19,7 +19,6 @@ class Radar {
         this.canvas.addEventListener("resetRaid", this.#handleResetRaid);
         this.canvas.addEventListener("startOfTheRaid", this.#handleStartOfTheRaid);
         this.canvas.addEventListener("endOfTheRaid", this.#handleEndOfTheRaid);
-        this.zone.container.addEventListener("resizeGame", this.#handleResizeGame);
     }
 
     #handleShoot = (event) => {
@@ -64,10 +63,6 @@ class Radar {
                 clearInterval(idInterval);
             }
         }, 100);
-    };
-
-    #handleResizeGame = (event) => {
-        this.infoForPlayer.style.width = `${event.detail.width}px`;
     };
 
     displayRadar() {
